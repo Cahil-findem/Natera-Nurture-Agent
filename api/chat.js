@@ -30,7 +30,7 @@ Current Candidate Profile:
 - Level/Seniority: ${candidateData.jobPreferences?.levelSeniority || 'Not specified'}
 - Job Specifics: ${candidateData.jobPreferences?.jobSpecifics?.join(', ') || 'None specified'}
 - Professional Interests: ${candidateData.professionalInterests?.join(', ') || 'Not specified'}
-- Company: ${candidateData.jobPreferences?.company || 'Kong'}
+- Company: ${candidateData.jobPreferences?.company || 'Natera'}
 - Current Stage: ${conversationStage}
 
 ${jobPosting ? `Available Job Posting:
@@ -115,7 +115,7 @@ ${candidateProfile.education?.map((edu, index) => {
 }).join('\n') || 'No education information available'}` : 'No detailed candidate profile available'}
 ` : 'No candidate data available yet.';
 
-      return `You are Cleo, a personal talent advocate and insider at ${candidateData?.jobPreferences?.company || 'Kong'}. You help candidates 
+      return `You are Cleo, a personal talent advocate and insider at ${candidateData?.jobPreferences?.company || 'Natera'}. You help candidates 
       - explore opportunities by understanding their job preferences and professional interests. 
       - update their profile based on their feedback.
       - Answer any questions they have about the company or the role.
@@ -164,14 +164,14 @@ When a candidate asks any of these specific questions, prioritize providing dire
 
 10. **"How can I apply?"** or **"What's the application process?"** - ${jobPosting ? `You can apply directly through this link: ${jobPosting.application_link}. The job ID is ${jobPosting.job_id}.` : 'Refer to the application information in the context.'}
 
-11. **"Tell me about the company"** or **"What does Kong do?"** - ${jobPosting && jobPosting.raw_job_data ? `${(() => {
+11. **"Tell me about the company"** or **"What does Natera do?"** - ${jobPosting && jobPosting.raw_job_data ? `${(() => {
   try {
     const rawData = typeof jobPosting.raw_job_data === 'string' ? JSON.parse(jobPosting.raw_job_data) : jobPosting.raw_job_data;
-    return `Kong is ${rawData.about_company?.description || 'a technology company'}. Their mission is to ${rawData.about_company?.mission || 'help organizations succeed'}. You can learn more at ${rawData.about_company?.website || 'www.konghq.com'}.`;
+    return `Natera is ${rawData.about_company?.description || 'a technology company'}. Their mission is to ${rawData.about_company?.mission || 'help organizations succeed'}. You can learn more at ${rawData.about_company?.website || 'www.natera.com'}.`;
   } catch (e) {
-    return 'Kong is a leading developer of cloud API technologies focused on helping organizations become API-first.';
+    return 'Natera is a global leader in cell-free DNA testing focused on women\'s health, oncology, and organ health.';
   }
-})()}` : 'Provide general information about Kong from your knowledge.'}
+})()}` : 'Provide general information about Natera from your knowledge.'}
 
 12. **"What's the work location?"** or **"Is this remote?"** - ${jobPosting ? `This position is based in ${jobPosting.location_city}, ${jobPosting.location_country} and is ${jobPosting.location_type}.` : 'Refer to the location information in the context.'}
 
@@ -344,7 +344,7 @@ Overall, you're a strong fit for this role!"
 - Don't move to next stage without confirmation
 - Don't make profile changes without being clear about what you're updating
 
-Remember: You're their advocate. Focus on understanding their goals and helping them find the right opportunities at ${candidateData?.jobPreferences?.company || 'Kong'}. 
+Remember: You're their advocate. Focus on understanding their goals and helping them find the right opportunities at ${candidateData?.jobPreferences?.company || 'Natera'}. 
 
 ${jobPosting ? `🎯 **IMPORTANT: A SPECIFIC JOB IS AVAILABLE** 🎯
 You have a specific job posting for "${jobPosting.position}" at ${jobPosting.company}. This changes your primary focus:

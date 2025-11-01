@@ -12,8 +12,9 @@ interface EmailData {
 }
 
 interface RoleEmailData {
-  jacobWang: EmailData | null;
-  kristinaWong: EmailData | null;
+  breannaAchenbach: EmailData | null;
+  ozgurAcar: EmailData | null;
+  carolAnneWeeks: EmailData | null;
 }
 
 interface EmailPreviewProps {
@@ -22,10 +23,11 @@ interface EmailPreviewProps {
 
 const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
   const [emailData, setEmailData] = useState<RoleEmailData>({
-    jacobWang: null,
-    kristinaWong: null
+    breannaAchenbach: null,
+    ozgurAcar: null,
+    carolAnneWeeks: null
   });
-  const [currentRole, setCurrentRole] = useState<'jacobWang' | 'kristinaWong'>('jacobWang');
+  const [currentRole, setCurrentRole] = useState<'breannaAchenbach' | 'ozgurAcar' | 'carolAnneWeeks'>('breannaAchenbach');
   const [loading, setLoading] = useState(true);
   const [candidateInfo, setCandidateInfo] = useState<any>(null);
 
@@ -44,7 +46,7 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
           hasEmailData: !!parsedData.emailData,
           hasRoleEmails: !!parsedData.roleEmails,
           hasOldFormat: parsedData.emailData && !!parsedData.emailData.email,
-          hasNewFormat: parsedData.roleEmails && (!!parsedData.roleEmails.jacobWang || !!parsedData.roleEmails.kristinaWong),
+          hasNewFormat: parsedData.roleEmails && (!!parsedData.roleEmails.breannaAchenbach || !!parsedData.roleEmails.ozgurAcar),
           emailDataKeys: parsedData.emailData ? Object.keys(parsedData.emailData) : [],
           roleEmailKeys: parsedData.roleEmails ? Object.keys(parsedData.roleEmails) : []
         });
@@ -72,8 +74,9 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
           setCandidateInfo(parsedPreGenerated.candidate);
           
           const newEmailData: RoleEmailData = {
-            jacobWang: null,
-            kristinaWong: null
+            breannaAchenbach: null,
+            ozgurAcar: null,
+            carolAnneWeeks: null
           };
 
           // Check if we have role-specific data (new format)
@@ -82,8 +85,8 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
           // If this is primary-only data, we need to fetch the other candidates
           if (parsedPreGenerated.primaryOnly) {
             console.log('EmailPreview - Primary-only data detected, fetching other candidates...');
-            
-            // Use primary data for jacobWang
+
+            // Use primary data for breannaAchenbach
             const formattedBody = parsedPreGenerated.emailData.email.body
               .replace(/\n\n/g, '</p><p>')
               .replace(/\n/g, '<br>')
@@ -94,26 +97,27 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
               // Then convert any remaining bare URLs to clickable links
               .replace(/(^|[^"])(https?:\/\/[^\s<]+)(?![^<]*<\/a>)/g, '$1<a href="$2" target="_blank" style="color: #4599FA; text-decoration: underline;">$2</a>');
 
-            newEmailData.jacobWang = {
+            newEmailData.breannaAchenbach = {
               subject: parsedPreGenerated.emailData.email.subject,
               content: formattedBody,
               preview_text: parsedPreGenerated.emailData.email.subject,
-              logoUrl: '/Logo.png',
-              companyName: 'Kong',
-              companyWebsite: 'https://konghq.com',
-              role: 'Jacob Wang - Senior Software Engineer'
+              logoUrl: '/Natera logo.svg',
+              companyName: 'Natera',
+              companyWebsite: 'https://www.natera.com',
+              role: 'Breanna Achenbach - Phlebotomist'
             };
-            
+
             // Set loading false - all data should be available from RecipeLoader
             setEmailData(newEmailData);
             setLoading(false);
             return;
-          } else if (parsedPreGenerated.roleEmails && (parsedPreGenerated.roleEmails.jacobWang || parsedPreGenerated.roleEmails.kristinaWong)) {
+          } else if (parsedPreGenerated.roleEmails && (parsedPreGenerated.roleEmails.breannaAchenbach || parsedPreGenerated.roleEmails.ozgurAcar || parsedPreGenerated.roleEmails.carolAnneWeeks)) {
             console.log('EmailPreview - Using role-specific pre-generated data');
 
             const roles = [
-              { key: 'jacobWang', name: 'Jacob Wang - Senior Software Engineer' },
-              { key: 'kristinaWong', name: 'Kristina Wong - Senior Product Designer' }
+              { key: 'breannaAchenbach', name: 'Breanna Achenbach - Phlebotomist' },
+              { key: 'ozgurAcar', name: 'Ozgur Acar - Registered Nurse' },
+              { key: 'carolAnneWeeks', name: 'Carol-anne Weeks - Healthcare Specialist' }
             ];
 
             roles.forEach(role => {
@@ -133,9 +137,9 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
                   subject: roleData.email.subject,
                   content: formattedBody,
                   preview_text: roleData.email.subject,
-                  logoUrl: '/Logo.png',
-                  companyName: 'Kong',
-                  companyWebsite: 'https://konghq.com',
+                  logoUrl: '/Natera logo.svg',
+                  companyName: 'Natera',
+                  companyWebsite: 'https://www.natera.com',
                   role: role.name
                 };
               }
@@ -157,14 +161,15 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
               subject: parsedPreGenerated.emailData.email.subject,
               content: formattedBody,
               preview_text: parsedPreGenerated.emailData.email.subject,
-              logoUrl: '/Logo.png',
-              companyName: 'Kong',
-              companyWebsite: 'https://konghq.com'
+              logoUrl: '/Natera logo.svg',
+              companyName: 'Natera',
+              companyWebsite: 'https://www.natera.com'
             };
 
             const roles = [
-              { key: 'jacobWang', name: 'Jacob Wang - Senior Software Engineer' },
-              { key: 'kristinaWong', name: 'Kristina Wong - Senior Product Designer' }
+              { key: 'breannaAchenbach', name: 'Breanna Achenbach - Phlebotomist' },
+              { key: 'ozgurAcar', name: 'Ozgur Acar - Registered Nurse' },
+              { key: 'carolAnneWeeks', name: 'Carol-anne Weeks - Healthcare Specialist' }
             ];
 
             roles.forEach(role => {
@@ -216,8 +221,9 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
   const currentEmailData = emailData[currentRole];
 
   const roleLabels = {
-    jacobWang: 'Jacob Wang - Senior Software Engineer',
-    kristinaWong: 'Kristina Wong - Senior Product Designer'
+    breannaAchenbach: 'Breanna Achenbach - Phlebotomist',
+    ozgurAcar: 'Ozgur Acar - Registered Nurse',
+    carolAnneWeeks: 'Carol-anne'
   };
 
   const roles = Object.keys(roleLabels) as Array<keyof typeof roleLabels>;
@@ -286,7 +292,7 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
             <div className="hero-image-container">
               <img
                 className="hero-image"
-                src="/Hero.png"
+                src="/Natera%20Email%20image.png"
                 alt="Professional workspace"
               />
               {/* Company Logo Overlay */}
@@ -299,7 +305,7 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
                   />
                 ) : (
                   <img
-                    src="/Logo.png"
+                    src="/Natera logo.svg"
                     alt="Company logo"
                     className="overlay-logo"
                   />
@@ -339,7 +345,7 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ onChatClick }) => {
               {currentEmailData.logoUrl ? (
                 <img src={currentEmailData.logoUrl} alt={`${currentEmailData.companyName} footer logo`} style={{maxHeight: '21px'}} />
               ) : (
-                <img src="/Logo.png" alt="Footer logo" style={{maxHeight: '21px'}} />
+                <img src="/Natera logo.svg" alt="Footer logo" style={{maxHeight: '21px'}} />
               )}
             </div>
             <div className="footer-divider"></div>

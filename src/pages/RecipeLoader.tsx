@@ -28,7 +28,7 @@ const RecipeLoader: React.FC<RecipeLoaderProps> = ({ onNavigate }) => {
       id: 1,
       icon: 'article',
       title: 'Gathering recent blog posts',
-      text: 'www.kong.com/blog',
+      text: 'www.natera.com/company/news',
       visible: false,
       isImageCard: true
     },
@@ -69,7 +69,7 @@ const RecipeLoader: React.FC<RecipeLoaderProps> = ({ onNavigate }) => {
     image5: false
   });
 
-  // Function to fetch email data from Kong API for all three candidates
+  // Function to fetch email data from Natera API for all candidates
   const fetchEmailData = async () => {
     if (emailDataFetched || fetchInProgress || fetchInitiated.current) return; // Prevent duplicate calls
     
@@ -77,20 +77,18 @@ const RecipeLoader: React.FC<RecipeLoaderProps> = ({ onNavigate }) => {
     setFetchInProgress(true);
     
     try {
-      console.log('RecipeLoader - Fetching email data from Kong API for all candidates...');
+      console.log('RecipeLoader - Fetching email data from Natera API for all candidates...');
       
       const candidateIds = {
-        jacobWang: 'pub_hola_5c7d24bb19976ca87e8f8bbb',
-        kristinaWong: 'pub_5d984bc378b4d04f623a7b2f',
-        colinFarnan: 'pub_5c7baa020cadfda94cb36a7f',
-        vijayKethan: 'pub_5c7bbb110cadfda94c27eb89'
+        breannaAchenbach: 'pub_plab_608d43769eb26d0fa4062315',
+        ozgurAcar: 'pub_5d984f6178b4d04f6244fa78',
+        carolAnneWeeks: 'pub_cs_677938b45911ed1d97316bc9'
       };
 
       const roles = [
-        { key: 'jacobWang', name: 'Jacob Wang - Senior Software Engineer' },
-        { key: 'kristinaWong', name: 'Kristina Wong - Senior Product Designer' },
-        { key: 'colinFarnan', name: 'Colin Farnan - Account Executive' },
-        { key: 'vijayKethan', name: 'Vijay Kethan - Senior Customer Success Manager' }
+        { key: 'breannaAchenbach', name: 'Breanna Achenbach - Phlebotomist' },
+        { key: 'ozgurAcar', name: 'Ozgur Acar - Registered Nurse' },
+        { key: 'carolAnneWeeks', name: 'Carol-anne Weeks - Healthcare Specialist' }
       ];
 
       // Fetch email data for all candidates in parallel
@@ -98,7 +96,7 @@ const RecipeLoader: React.FC<RecipeLoaderProps> = ({ onNavigate }) => {
         const candidateId = candidateIds[role.key as keyof typeof candidateIds];
         
         console.log(`RecipeLoader - Making API call for ${role.name} with candidate_id: ${candidateId}`);
-        const response = await fetch('https://kong-email-creator.vercel.app/api/generate-email', {
+        const response = await fetch('https://natera-blog-crawler.vercel.app/api/generate-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -138,8 +136,8 @@ const RecipeLoader: React.FC<RecipeLoaderProps> = ({ onNavigate }) => {
         }
       });
 
-      // Use the first candidate (jacobWang) as the primary candidate for backward compatibility
-      const primaryResult = results.find(r => r && r.role === 'jacobWang');
+      // Use the first candidate (breannaAchenbach) as the primary candidate for backward compatibility
+      const primaryResult = results.find(r => r && r.role === 'breannaAchenbach');
       if (primaryResult) {
         preGeneratedEmails.candidate = primaryResult.emailResponse.candidate;
         preGeneratedEmails.emailData = primaryResult.emailResponse; // Keep for backward compatibility

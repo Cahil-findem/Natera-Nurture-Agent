@@ -129,7 +129,7 @@ const Recipe2_2: React.FC<Recipe2_2Props> = ({ onNavigate }) => {
     const fullName = candidateInfo?.name || 'Unknown';
     const firstName = fullName.split(' ')[0];
 
-    // Get interests and job preferences from the stored email data (from Kong API) for the current role
+    // Get interests and job preferences from the stored email data (from Natera API) for the current role
     let professionalInterests = [
       'career development topics',
       'back-end software engineering', 
@@ -142,7 +142,7 @@ const Recipe2_2: React.FC<Recipe2_2Props> = ({ onNavigate }) => {
       locations: ['Austin, TX', 'Remote'],
       levelSeniority: 'Senior',
       jobSpecifics: [], // Ideally empty initially
-      company: 'Kong'
+      company: 'Natera'
     }; // fallback
 
     try {
@@ -151,7 +151,9 @@ const Recipe2_2: React.FC<Recipe2_2Props> = ({ onNavigate }) => {
         const parsedData = JSON.parse(preGeneratedData);
         
         // Map role keys to user-friendly names for backward compatibility
-        const roleName = currentRole === 'jacobWang' ? 'Jacob Wang' :
+        const roleName = currentRole === 'breannaAchenbach' ? 'Breanna Achenbach' :
+                        currentRole === 'ozgurAcar' ? 'Ozgur Acar' :
+                        currentRole === 'carolAnneWeeks' ? 'Carol-anne Weeks' :
                         currentRole === 'kristinaWong' ? 'Kristina Wong' : currentRole;
 
         // Try to get data from role-specific data for the current role
@@ -261,7 +263,7 @@ const Recipe2_2: React.FC<Recipe2_2Props> = ({ onNavigate }) => {
       console.error('Error parsing data from API:', error);
     }
 
-    // Store candidate information for the chat using data from Kong API
+    // Store candidate information for the chat using data from Natera API
     const candidateData = {
       name: fullName,
       firstName: firstName,

@@ -52,18 +52,18 @@ const Chat: React.FC<ChatProps> = ({ onNavigate }) => {
 
           // Determine current candidate role key from candidateData
           const loadedCandidateData = localStorage.getItem('candidateData');
-          let currentCandidateRoleKey = 'jacobWang'; // default fallback
-          
+          let currentCandidateRoleKey = 'breannaAchenbach'; // default fallback
+
           if (loadedCandidateData) {
             try {
               const candidateInfo = JSON.parse(loadedCandidateData);
               // Map candidate names to role keys
-              if (candidateInfo.name?.includes('Jacob Wang')) {
-                currentCandidateRoleKey = 'jacobWang';
-              } else if (candidateInfo.name?.includes('Kristina Wong')) {
-                currentCandidateRoleKey = 'kristinaWong';
-              } else if (candidateInfo.name?.includes('Colin Farnan')) {
-                currentCandidateRoleKey = 'colinFarnan';
+              if (candidateInfo.name?.includes('Breanna Achenbach')) {
+                currentCandidateRoleKey = 'breannaAchenbach';
+              } else if (candidateInfo.name?.includes('Ozgur Acar')) {
+                currentCandidateRoleKey = 'ozgurAcar';
+              } else if (candidateInfo.name?.includes('Carol-anne Weeks')) {
+                currentCandidateRoleKey = 'carolAnneWeeks';
               }
               console.log('Determined current candidate role key:', currentCandidateRoleKey, 'for candidate:', candidateInfo.name);
             } catch (e) {

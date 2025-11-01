@@ -23,7 +23,7 @@ interface Recipe2Props {
 
 const Recipe2: React.FC<Recipe2Props> = ({ onNavigate }) => {
   const [logoFile, setLogoFile] = useState<File | null>(null);
-  const [logoUrl, setLogoUrl] = useState<string>('/Logo.png');
+  const [logoUrl, setLogoUrl] = useState<string>('/Natera logo.svg');
   const [colors, setColors] = useState<ColorSwatch[]>([
     { color: '#4552F6', hex: '#4599FA' },
     { color: '#A9D1FF', hex: '#A9D1FF' },

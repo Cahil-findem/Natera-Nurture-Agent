@@ -13,20 +13,10 @@ interface CandidateEmail {
   emailSubject?: string;
 }
 
-// Hardcoded email content for Kristina Wong
-const KRISTINA_HARDCODED_EMAIL = {
-  subject: "Checking in on your next move, Kristina",
-  body: `Hi Kristina,
-
-I saw that you led the launch of Vanta's new design system last week — congratulations on the release! The way you've scaled cohesive, intuitive patterns across teams really stood out.
-
-I'd love to stay aligned on the types of opportunities that excite you. Are you looking to deepen your design systems work, or explore broader product design leadership?
-
-<div style="margin: 0 0 12px 0;">I thought these might resonate with you:</div><div style="display: flex; gap: 12px; margin-bottom: 12px; align-items: center;"><img src="https://prd-mktg-konghq-com.imgix.net/images/2024/07/66856ea7-blog-bannerscover-design-system-at-kong.png?auto=format" alt="Lessons We Learned Implementing a Design System at Kong" style="width: 250px; height: 144px; object-fit: cover; border-radius: 12px; flex-shrink: 0;"><div style="flex: 1;"><a href="https://konghq.com/blog/engineering/lessons-learned-implementing-a-design-system" style="font-size: 14px; font-weight: 500; color: #101828; text-decoration: none; display: block; margin-bottom: 8px; line-height: 20px;">Lessons We Learned Implementing a Design System at Kong</a><p style="margin: 0; font-size: 14px; color: #6b7280; line-height: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">A behind-the-scenes look at how Kong scaled a design system across multiple teams — something that mirrors your experience leading Vanta's launch.</p></div></div><div style="display: flex; gap: 12px; margin-bottom: 12px; align-items: center;"><img src="https://prd-mktg-konghq-com.imgix.net/images/2025/06/6862fcea-blog-headers-85.png?auto=format" alt="Kong's New Developer Portal: Modern UX Meets Developer Self-Service" style="width: 250px; height: 144px; object-fit: cover; border-radius: 12px; flex-shrink: 0;"><div style="flex: 1;"><a href="https://konghq.com/blog/product-releases/new-dev-portal-deep-dive" style="font-size: 14px; font-weight: 500; color: #101828; text-decoration: none; display: block; margin-bottom: 8px; line-height: 20px;">Kong's New Developer Portal: Modern UX Meets Developer Self-Service</a><p style="margin: 0; font-size: 14px; color: #6b7280; line-height: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">An example of applying modern UX principles to developer tools — likely relevant to your interest in scalable, self-service design experiences.</p></div></div>
-
-<div style="margin: 0;">Happy to chat if you're thinking about next steps, or just want to compare notes on how design systems are evolving across the industry.</div>
-
-Best,`
+// Hardcoded email content for Carol-anne
+const CAROL_ANNE_HARDCODED_EMAIL = {
+  subject: "Checking in on your next move, Carol-Anne",
+  body: `Hi Carol-Anne,<br><br>I saw that your new paper on rare disease management was published last week — congratulations on the launch! The insights you shared on patient pathways and integrated care models really reinforce the depth of your expertise in the field.<br><br>Given your track record of impact at Amgen and your continued thought leadership, I'm curious — are you looking to expand further into advisory or consulting roles, or does the specialty account leadership path still excite you most?<br><br>I thought these might resonate with you:<br><br><div style="margin-bottom: 24px;"> <img src="/Natera%20Blog.webp" alt="Natera to Report Third Quarter Results on November 6, 2025" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; margin-bottom: 12px;"> <a href="https://www.natera.com/investor-relations/" style="font-size: 16px; font-weight: 600; color: #2563eb; text-decoration: none;">Natera to Report Third Quarter Results on November 6, 2025</a> <p style="margin-top: 8px; font-size: 14px; color: #6b7280; line-height: 1.6;">With your focus on strategic sales and evidence-driven healthcare, this update offers an interesting view into how Natera is framing growth in the precision medicine space.</p> </div> <div style="margin-bottom: 24px;"> <img src="/Natera%20Blog.webp" alt="Natera Named to Fast Company's Next Big Things in Tech List" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; margin-bottom: 12px;"> <a href="https://www.fastcompany.com/next-big-things-in-tech" style="font-size: 16px; font-weight: 600; color: #2563eb; text-decoration: none;">Natera Named to Fast Company's Next Big Things in Tech List</a> <p style="margin-top: 8px; font-size: 14px; color: #6b7280; line-height: 1.6;">A look at Natera's recognition for innovation — a natural complement to your own work advancing technology-enabled healthcare solutions.</p> </div> <div style="margin-bottom: 24px;"> <img src="/Natera%20Blog.webp" alt="How Technology is Transforming Rare Disease Care" style="width: 100%; max-width: 600px; height: auto; border-radius: 8px; margin-bottom: 12px;"> <a href="https://www.healthaffairs.org/do/10.1377/hblog20240509.12345" style="font-size: 16px; font-weight: 600; color: #2563eb; text-decoration: none;">How Technology is Transforming Rare Disease Care</a> <p style="margin-top: 8px; font-size: 14px; color: #6b7280; line-height: 1.6;">An exploration of digital innovation in rare disease management — closely aligned with the themes in your recent paper.</p> </div>Happy to chat if you're thinking about next steps or just want to swap perspectives on the evolving rare disease landscape.<br><br>Best,`
 };
 
 const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
@@ -66,50 +56,38 @@ const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
 
         // Check if we have role-specific email data
         if (parsedData.roleEmails) {
-          // Load Jacob Wang
-          if (parsedData.roleEmails.jacobWang && parsedData.roleEmails.jacobWang.email) {
-            const jacobData = parsedData.roleEmails.jacobWang;
+          // Load Breanna Achenbach
+          if (parsedData.roleEmails.breannaAchenbach && parsedData.roleEmails.breannaAchenbach.email) {
+            const breannaData = parsedData.roleEmails.breannaAchenbach;
             loadedCandidates.push({
-              name: jacobData.candidate?.name || "Jacob Wang",
-              role: jacobData.candidate?.current_title || "Senior Software Engineer",
-              company: jacobData.candidate?.company || "Google",
-              emailBody: jacobData.email.body || '',
-              emailSubject: jacobData.email.subject || ''
+              name: breannaData.candidate?.name || "Breanna Achenbach",
+              role: breannaData.candidate?.current_title || "Phlebotomist",
+              company: breannaData.candidate?.company || "Quest Diagnostics",
+              emailBody: breannaData.email.body || '',
+              emailSubject: breannaData.email.subject || ''
             });
           }
 
-          // Load Kristina Wong - Always use hardcoded content for testing
+          // Load Ozgur Acar
+          if (parsedData.roleEmails.ozgurAcar && parsedData.roleEmails.ozgurAcar.email) {
+            const ozgurData = parsedData.roleEmails.ozgurAcar;
+            loadedCandidates.push({
+              name: ozgurData.candidate?.name || "Ozgur Acar",
+              role: ozgurData.candidate?.current_title || "Registered Nurse",
+              company: ozgurData.candidate?.company || "Stanford Health Care",
+              emailBody: ozgurData.email.body || '',
+              emailSubject: ozgurData.email.subject || ''
+            });
+          }
+
+          // Load Carol-anne Weeks - Always use hardcoded content
           loadedCandidates.push({
-            name: "Kristina Wong",
-            role: "Senior Product Designer",
-            company: "Vanta",
-            emailBody: KRISTINA_HARDCODED_EMAIL.body,
-            emailSubject: KRISTINA_HARDCODED_EMAIL.subject
+            name: "Carol-anne",
+            role: "Healthcare Specialist",
+            company: "Amgen",
+            emailBody: CAROL_ANNE_HARDCODED_EMAIL.body,
+            emailSubject: CAROL_ANNE_HARDCODED_EMAIL.subject
           });
-
-          // Load Colin Farnan
-          if (parsedData.roleEmails.colinFarnan && parsedData.roleEmails.colinFarnan.email) {
-            const colinData = parsedData.roleEmails.colinFarnan;
-            loadedCandidates.push({
-              name: colinData.candidate?.name || "Colin Farnan",
-              role: colinData.candidate?.current_title || "Account Executive",
-              company: colinData.candidate?.company || "Datadog",
-              emailBody: colinData.email.body || '',
-              emailSubject: colinData.email.subject || ''
-            });
-          }
-
-          // Load Vijay Kethan
-          if (parsedData.roleEmails.vijayKethan && parsedData.roleEmails.vijayKethan.email) {
-            const vijayData = parsedData.roleEmails.vijayKethan;
-            loadedCandidates.push({
-              name: vijayData.candidate?.name || "Vijay Kethan",
-              role: vijayData.candidate?.current_title || "Senior Customer Success Manager",
-              company: vijayData.candidate?.company || "Epicor",
-              emailBody: vijayData.email.body || '',
-              emailSubject: vijayData.email.subject || ''
-            });
-          }
         }
 
         // If we successfully loaded candidates, use them
@@ -137,47 +115,16 @@ const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
   const getDefaultCandidates = (): CandidateEmail[] => {
     return [
       {
-        name: "Jacob Wang",
-        role: "Senior Software Engineer",
-        company: "Google",
-        emailBody: `Hi Jacob,
+        name: "Breanna Achenbach",
+        role: "Phlebotomist",
+        company: "Quest Diagnostics",
+        emailBody: `Hi Breanna,
 
-I came across your profile and was impressed by your extensive experience with distributed systems at Google and Firebase. Your work on high-availability, high-throughput systems really stood out.
+I came across your profile and was impressed by your experience in phlebotomy and patient care. Your dedication to providing excellent healthcare services really stood out.
 
-We're currently looking for talented engineers who have deep expertise in cloud technologies and distributed systems. Given your background with Java, Python, C++, and your hands-on experience with Docker and Kubernetes, I thought you might be interested in some of the opportunities we have.
+We're currently looking for talented healthcare professionals who have deep expertise in clinical laboratory services. Given your background and hands-on experience, I thought you might be interested in some of the opportunities we have at Natera.
 
 I'd love to connect and share more about what we're working on. Would you be open to a brief conversation?`
-      },
-      {
-        name: "Kristina Wong",
-        role: "Senior Product Designer",
-        company: "Vanta",
-        emailBody: KRISTINA_HARDCODED_EMAIL.body,
-        emailSubject: KRISTINA_HARDCODED_EMAIL.subject
-      },
-      {
-        name: "Colin Farnan",
-        role: "Account Executive",
-        company: "Datadog",
-        emailBody: `Hi Colin,
-
-I was impressed by your account executive experience at Datadog and your track record in managing major accounts. Your expertise in driving business growth and building strong client relationships really caught my attention.
-
-We're looking for talented sales professionals who understand the enterprise market and can help drive our business forward. Given your background in account management and your understanding of the tech industry, I thought you might be interested in exploring opportunities with us.
-
-I'd love to connect and discuss how your skills could contribute to our team's success. Would you be open to a conversation?`
-      },
-      {
-        name: "Vijay Kethan",
-        role: "Senior Customer Success Manager",
-        company: "Epicor",
-        emailBody: `Hi Vijay,
-
-I came across your profile and was impressed by your extensive experience in Customer Success, particularly your achievements at hireEZ where you managed 70+ accounts and increased product adoption rates by 20% within the first 90 days.
-
-Your track record of driving customer satisfaction and retention across multiple SaaS companies (Gem, hireEZ, Ooma) combined with your technical background (Master's in Computer Science) gives you a unique perspective in customer success. Your ability to collaborate cross-functionally and conduct impactful business reviews is particularly noteworthy.
-
-I'd love to discuss some opportunities where your customer success expertise and proven track record could make a significant impact. Would you be open to a conversation?`
       }
     ];
   };
@@ -214,10 +161,10 @@ I'd love to discuss some opportunities where your customer success expertise and
     const firstName = fullName.split(' ')[0];
 
     // Get the current role key based on candidate index
-    const roleKeys = ['jacobWang', 'kristinaWong', 'colinFarnan', 'vijayKethan'];
+    const roleKeys = ['breannaAchenbach', 'ozgurAcar', 'carolAnneWeeks'];
     const currentRoleKey = roleKeys[currentCandidateIndex];
 
-    // Get interests and job preferences from the stored email data (from Kong API)
+    // Get interests and job preferences from the stored email data (from Natera API)
     let professionalInterests = [
       'career development topics',
       'back-end software engineering',
@@ -230,7 +177,7 @@ I'd love to discuss some opportunities where your customer success expertise and
       locations: ['Austin, TX', 'Remote'],
       levelSeniority: 'Senior',
       jobSpecifics: [],
-      company: 'Kong'
+      company: 'Natera'
     }; // fallback
 
     try {
@@ -297,7 +244,7 @@ I'd love to discuss some opportunities where your customer success expertise and
       console.error('Error parsing data from API:', error);
     }
 
-    // Store candidate information for the chat using data from Kong API
+    // Store candidate information for the chat using data from Natera API
     const candidateData = {
       name: fullName,
       firstName: firstName,
@@ -381,7 +328,7 @@ I'd love to discuss some opportunities where your customer success expertise and
                   <div className="hero-container">
                     <div className="hero-image-wrapper">
                       <img
-                        src="/Email%20image.png"
+                        src="/Natera%20Email%20image.png"
                         alt="Hero"
                         className="hero-image"
                       />
@@ -424,7 +371,7 @@ I'd love to discuss some opportunities where your customer success expertise and
 
                 {/* Footer */}
                 <div className="email-footer">
-                  <img src="/Kong_Footer_Logo.png" alt="Kong Logo" className="footer-logo" />
+                  <img src="/Natera logo.svg" alt="Natera Logo" className="footer-logo" />
                   <div className="footer-divider-line"></div>
                   <p className="footer-text">
                     This email was sent to you because you are subscribed to the career newsletter.
