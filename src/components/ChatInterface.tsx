@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { marked } from 'marked';
 import './ChatInterface.css';
 
 interface Message {
@@ -29,6 +30,22 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const chatAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const isProgrammaticFocusRef = useRef(false);
+
+  // Configure marked for safe HTML rendering
+  marked.setOptions({
+    breaks: true, // Convert line breaks to <br>
+    gfm: true,   // Enable GitHub flavored markdown
+  });
+
+  // Function to safely parse markdown to HTML
+  const parseMarkdown = (text: string): string => {
+    try {
+      return marked.parse(text) as string;
+    } catch (error) {
+      console.error('Markdown parsing error:', error);
+      return text; // Fallback to plain text
+    }
+  };
 
   const jobSpecificSuggestions = [
     { text: 'Please summarise the job for me', icon: 'description' },
@@ -197,7 +214,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
             <div key={msg.id} className={msg.type === 'ai' ? 'ai-message' : 'user-message'}>
               {msg.type === 'ai' ? (
                 <span dangerouslySetInnerHTML={{
-                  __html: displayedText[msg.id] || ''
+                  __html: parseMarkdown(displayedText[msg.id] || '')
                 }}></span>
               ) : (
                 <p>{msg.content}</p>
