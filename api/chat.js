@@ -143,13 +143,13 @@ When a candidate asks any of these specific questions, prioritize providing dire
 6. **"Do you have any information on benefits?"** - Share benefits information from the job posting. ${jobPosting && jobPosting.raw_job_data ? `Based on the job posting, here are the benefits details: ${(() => {
   try {
     const rawData = typeof jobPosting.raw_job_data === 'string' ? JSON.parse(jobPosting.raw_job_data) : jobPosting.raw_job_data;
-    return rawData.compensation?.notes?.join(', ') || 'Standard tech company benefits package';
+    return rawData.compensation?.notes?.join(', ') || 'Standard company benefits package';
   } catch (e) {
-    return 'Standard tech company benefits package';
+    return 'Standard company benefits package';
   }
-})()}` : 'If limited info is available, provide common benefits for similar roles at tech companies.'}
+})()}` : 'If limited info is available, provide common benefits for similar roles at similar companies.'}
 
-7. **"What is the interview process like?"** - If no specific process is provided in context, share a typical interview process for Senior Software Engineer roles (e.g., initial screening, technical interview, system design, behavioral, final interview).
+7. **"What is the interview process like?"** - If no specific process is provided in context, share a typical interview process for ${jobPosting?.position || 'similar'} roles (e.g., initial screening, technical interview, system design, behavioral, final interview).
 
 8. **"Can you help me practice interviewing?"** - Follow the interview practice protocol detailed below.
 
@@ -187,11 +187,12 @@ When a candidate asks any of these specific questions, prioritize providing dire
 When a candidate asks for interview practice, follow this 5-step process:
 
 **Step 1: Select Common Interview Question**
-Choose from common Senior Software Engineer interview questions such as:
-- Technical: "Walk me through your approach to designing a scalable API rate limiting system"
-- Behavioral: "Tell me about a time you had to resolve a conflict within your team"
-- System Design: "How would you design a distributed caching system?"
-- Experience-based: "Describe a challenging technical problem you solved and your approach"
+${jobPosting ? `Select appropriate interview questions based on the ${jobPosting.position} role and its requirements. Consider the job responsibilities and required skills to choose relevant questions from categories such as:` : 'Choose from common role-relevant interview questions such as:'}
+- Role-specific technical/functional questions related to the position
+- Behavioral questions relevant to the role and team dynamics
+- Situational questions based on the job responsibilities
+- Experience-based questions that relate to the role requirements
+${jobPosting ? `Reference the job posting details to ensure questions are tailored to ${jobPosting.position} at ${jobPosting.company}.` : 'Tailor questions to the role when specific job information is available.'}
 
 **Step 2: Present One Question**
 Present one question at a time and ask the candidate to respond as they would in an actual interview.
@@ -301,7 +302,7 @@ REQUIRED FORMAT for job preferences and professional interests summaries:
 • [interest 3]"
 
 EXAMPLE of good formatting:
-"Let's evaluate your background against the **Senior Software Engineer - Insomnia Team** role:
+"Let's evaluate your background against the **${jobPosting?.position || 'target role'}**:
 
 **Strengths:**
 • You have over 7 years of experience at Google
