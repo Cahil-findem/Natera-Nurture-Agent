@@ -40,7 +40,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   // Function to safely parse markdown to HTML
   const parseMarkdown = (text: string): string => {
     try {
-      return marked.parse(text) as string;
+      const result = marked.parse(text) as string;
+      console.log('Markdown input:', text);
+      console.log('Parsed HTML output:', result);
+      return result;
     } catch (error) {
       console.error('Markdown parsing error:', error);
       return text; // Fallback to plain text
@@ -102,25 +105,50 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     const typeMessage = (msg: Message) => {
       if (isCancelled) return;
 
+      // Parse the complete markdown to HTML first
+      const fullHtml = parseMarkdown(msg.content);
+      
+      // Create a simple text version for typing effect by stripping HTML tags
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = fullHtml;
+      const plainText = tempDiv.textContent || tempDiv.innerText || '';
+      
       let currentIndex = 0;
-      const fullText = msg.content;
 
       const typeNextChar = () => {
         if (isCancelled) return;
 
-        if (currentIndex <= fullText.length) {
-          setDisplayedText(prev => ({
-            ...prev,
-            [msg.id]: fullText.substring(0, currentIndex)
-          }));
+        if (currentIndex <= plainText.length) {
+          // For typewriter effect, we'll show progressive text but keep the HTML formatting
+          // We'll show the full HTML but with a subset of the plain text
+          const currentText = plainText.substring(0, currentIndex);
+          
+          // If we have the full text, show the full HTML, otherwise show progressive plain text
+          if (currentIndex >= plainText.length) {
+            setDisplayedText(prev => ({
+              ...prev,
+              [msg.id]: fullHtml
+            }));
+          } else {
+            setDisplayedText(prev => ({
+              ...prev,
+              [msg.id]: currentText
+            }));
+          }
+          
           currentIndex++;
           const timeout = setTimeout(typeNextChar, typingSpeed);
           timeouts.push(timeout);
         } else {
-          // Finished typing this message
+          // Finished typing this message, ensure full HTML is shown
+          setDisplayedText(prev => ({
+            ...prev,
+            [msg.id]: fullHtml
+          }));
+          
+          // Move to next message
           messageIndex++;
           if (messageIndex < untypedMessages.length) {
-            // Small delay before starting next message
             const timeout = setTimeout(() => typeMessage(untypedMessages[messageIndex]), 300);
             timeouts.push(timeout);
           }
@@ -214,7 +242,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
             <div key={msg.id} className={msg.type === 'ai' ? 'ai-message' : 'user-message'}>
               {msg.type === 'ai' ? (
                 <span dangerouslySetInnerHTML={{
-                  __html: parseMarkdown(displayedText[msg.id] || '')
+                  __html: displayedText[msg.id] || ''
                 }}></span>
               ) : (
                 <p>{msg.content}</p>
