@@ -11,6 +11,7 @@ interface CandidateEmail {
   company: string;
   emailBody: string;
   emailSubject?: string;
+  hasJobPosting?: boolean;
 }
 
 // Hardcoded email content for Carol-anne
@@ -59,34 +60,49 @@ const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
           // Load Breanna Achenbach
           if (parsedData.roleEmails.breannaAchenbach && parsedData.roleEmails.breannaAchenbach.email) {
             const breannaData = parsedData.roleEmails.breannaAchenbach;
+            // Check if this email includes job posting info (detect job match vs nurture email)
+            const hasJobPosting = !!(breannaData.job_posting || breannaData.jobPosting || 
+              (breannaData.email.body && breannaData.email.body.includes('position')) ||
+              (breannaData.email.body && breannaData.email.body.includes('role')) ||
+              (breannaData.email.subject && breannaData.email.subject.toLowerCase().includes('opportunity')));
+            
             loadedCandidates.push({
               name: breannaData.candidate?.name || "Breanna Achenbach",
               role: breannaData.candidate?.current_title || "Phlebotomist",
               company: breannaData.candidate?.company || "Quest Diagnostics",
               emailBody: breannaData.email.body || '',
-              emailSubject: breannaData.email.subject || ''
+              emailSubject: breannaData.email.subject || '',
+              hasJobPosting
             });
           }
 
           // Load Ozgur Acar
           if (parsedData.roleEmails.ozgurAcar && parsedData.roleEmails.ozgurAcar.email) {
             const ozgurData = parsedData.roleEmails.ozgurAcar;
+            // Check if this email includes job posting info (detect job match vs nurture email)
+            const hasJobPosting = !!(ozgurData.job_posting || ozgurData.jobPosting || 
+              (ozgurData.email.body && ozgurData.email.body.includes('position')) ||
+              (ozgurData.email.body && ozgurData.email.body.includes('role')) ||
+              (ozgurData.email.subject && ozgurData.email.subject.toLowerCase().includes('opportunity')));
+            
             loadedCandidates.push({
               name: ozgurData.candidate?.name || "Ozgur Acar",
               role: ozgurData.candidate?.current_title || "Registered Nurse",
               company: ozgurData.candidate?.company || "Stanford Health Care",
               emailBody: ozgurData.email.body || '',
-              emailSubject: ozgurData.email.subject || ''
+              emailSubject: ozgurData.email.subject || '',
+              hasJobPosting
             });
           }
 
-          // Load Carol-anne Weeks - Always use hardcoded content
+          // Load Carol-anne Weeks - Always use hardcoded content (nurture email, no job posting)
           loadedCandidates.push({
             name: "Carol-anne",
             role: "Healthcare Specialist",
             company: "Amgen",
             emailBody: CAROL_ANNE_HARDCODED_EMAIL.body,
-            emailSubject: CAROL_ANNE_HARDCODED_EMAIL.subject
+            emailSubject: CAROL_ANNE_HARDCODED_EMAIL.subject,
+            hasJobPosting: false // This is a nurture email
           });
         }
 
@@ -124,7 +140,8 @@ I came across your profile and was impressed by your experience in phlebotomy an
 
 We're currently looking for talented healthcare professionals who have deep expertise in clinical laboratory services. Given your background and hands-on experience, I thought you might be interested in some of the opportunities we have at Natera.
 
-I'd love to connect and share more about what we're working on. Would you be open to a brief conversation?`
+I'd love to connect and share more about what we're working on. Would you be open to a brief conversation?`,
+        hasJobPosting: false // Default to nurture email
       }
     ];
   };
@@ -144,6 +161,9 @@ I'd love to connect and share more about what we're working on. Would you be ope
 
   const currentCandidate = candidates[currentCandidateIndex] || getDefaultCandidates()[0];
   const formattedEmailBody = formatEmailBody(currentCandidate.emailBody);
+  
+  // Debug logging to verify email type detection
+  console.log(`Current candidate: ${currentCandidate.name}, hasJobPosting: ${currentCandidate.hasJobPosting}`);
 
   const handleNavigate = (direction: 'prev' | 'next') => {
     if (candidates.length === 0) return;
@@ -360,7 +380,10 @@ I'd love to connect and share more about what we're working on. Would you be ope
                   <div className="cta-section">
                     <div className="cta-divider"></div>
                     <p className="cta-text">
-                      Not quite what you were looking for? Chat to Cleo to fine-tune what content and job opportunities we share with you!
+                      {currentCandidate.hasJobPosting 
+                        ? "Questions or interested in the job? Cleo can answer questions, help prep your application and even practice interviewing"
+                        : "Not quite what you were looking for? Chat to Cleo to fine-tune what content and job opportunities we share with you!"
+                      }
                     </p>
                     <button className="cta-button" onClick={handleChatClick}>
                       <span className="material-icons-round">auto_awesome</span>
