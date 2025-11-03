@@ -105,20 +105,57 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     const typeMessage = (msg: Message) => {
       if (isCancelled) return;
 
-      // For now, let's disable the typewriter effect for AI messages and show markdown directly
-      // This will help us test if the markdown parsing is working correctly
+      // Parse the complete markdown to HTML first
       const fullHtml = parseMarkdown(msg.content);
-      setDisplayedText(prev => ({
-        ...prev,
-        [msg.id]: fullHtml
-      }));
+      
+      // Create a simple text version for typing effect by stripping HTML tags
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = fullHtml;
+      const plainText = tempDiv.textContent || tempDiv.innerText || '';
+      
+      let currentIndex = 0;
 
-      // Move to next message immediately
-      messageIndex++;
-      if (messageIndex < untypedMessages.length) {
-        const timeout = setTimeout(() => typeMessage(untypedMessages[messageIndex]), 100);
-        timeouts.push(timeout);
-      }
+      const typeNextChar = () => {
+        if (isCancelled) return;
+
+        if (currentIndex <= plainText.length) {
+          // For typewriter effect, we'll show progressive text but keep the HTML formatting
+          // We'll show the full HTML but with a subset of the plain text
+          const currentText = plainText.substring(0, currentIndex);
+          
+          // If we have the full text, show the full HTML, otherwise show progressive plain text
+          if (currentIndex >= plainText.length) {
+            setDisplayedText(prev => ({
+              ...prev,
+              [msg.id]: fullHtml
+            }));
+          } else {
+            setDisplayedText(prev => ({
+              ...prev,
+              [msg.id]: currentText
+            }));
+          }
+          
+          currentIndex++;
+          const timeout = setTimeout(typeNextChar, typingSpeed);
+          timeouts.push(timeout);
+        } else {
+          // Finished typing this message, ensure full HTML is shown
+          setDisplayedText(prev => ({
+            ...prev,
+            [msg.id]: fullHtml
+          }));
+          
+          // Move to next message
+          messageIndex++;
+          if (messageIndex < untypedMessages.length) {
+            const timeout = setTimeout(() => typeMessage(untypedMessages[messageIndex]), 300);
+            timeouts.push(timeout);
+          }
+        }
+      };
+
+      typeNextChar();
     };
 
     // Start typing the first untyped message
