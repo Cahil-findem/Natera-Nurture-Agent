@@ -57,7 +57,7 @@ const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
 
         // Check if we have role-specific email data
         if (parsedData.roleEmails) {
-          // Load Breanna Achenbach
+          // Load Breanna Achenbach (1st email)
           if (parsedData.roleEmails.breannaAchenbach && parsedData.roleEmails.breannaAchenbach.email) {
             const breannaData = parsedData.roleEmails.breannaAchenbach;
             // Check if this email includes job posting info (detect job match vs nurture email)
@@ -76,7 +76,17 @@ const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
             });
           }
 
-          // Load Ozgur Acar
+          // Load Carol-anne Weeks - Always use hardcoded content (2nd email - nurture email, no job posting)
+          loadedCandidates.push({
+            name: "Carol-anne",
+            role: "Healthcare Specialist",
+            company: "Amgen",
+            emailBody: CAROL_ANNE_HARDCODED_EMAIL.body,
+            emailSubject: CAROL_ANNE_HARDCODED_EMAIL.subject,
+            hasJobPosting: false // This is a nurture email
+          });
+
+          // Load Ozgur Acar (3rd email)
           if (parsedData.roleEmails.ozgurAcar && parsedData.roleEmails.ozgurAcar.email) {
             const ozgurData = parsedData.roleEmails.ozgurAcar;
             // Check if this email includes job posting info (detect job match vs nurture email)
@@ -94,16 +104,6 @@ const OutreachContract: React.FC<OutreachContractProps> = ({ onNavigate }) => {
               hasJobPosting
             });
           }
-
-          // Load Carol-anne Weeks - Always use hardcoded content (nurture email, no job posting)
-          loadedCandidates.push({
-            name: "Carol-anne",
-            role: "Healthcare Specialist",
-            company: "Amgen",
-            emailBody: CAROL_ANNE_HARDCODED_EMAIL.body,
-            emailSubject: CAROL_ANNE_HARDCODED_EMAIL.subject,
-            hasJobPosting: false // This is a nurture email
-          });
         }
 
         // If we successfully loaded candidates, use them
@@ -181,7 +181,7 @@ I'd love to connect and share more about what we're working on. Would you be ope
     const firstName = fullName.split(' ')[0];
 
     // Get the current role key based on candidate index
-    const roleKeys = ['breannaAchenbach', 'ozgurAcar', 'carolAnneWeeks'];
+    const roleKeys = ['breannaAchenbach', 'carolAnneWeeks', 'ozgurAcar'];
     const currentRoleKey = roleKeys[currentCandidateIndex];
 
     // Get interests and job preferences from the stored email data (from Natera API)
