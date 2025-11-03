@@ -71,7 +71,7 @@ const GoalSelection: React.FC<GoalSelectionProps> = ({ onNavigate, navigationDir
                 alt="Logo"
               />
               <h1 className="page-title">
-                What's your main goal?
+                What's our main goal?
               </h1>
             </div>
           </div>

@@ -88,7 +88,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onNavigate, initialStep = 1, na
     if (currentStep === 1) {
       return {
         greeting: `Hey ${userName} 👋`,
-        message: "I'm Cleo, and I'll be helping you build personal<br>relationships with your talent. Let's get started!"
+        message: "I'm Cleo, and I'll be helping you build personal<br>relationships with great talent. Let's get started!"
       };
     } else if (currentStep === 2) {
       return {
@@ -97,7 +97,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onNavigate, initialStep = 1, na
       };
     } else {
       return {
-        greeting: "I nurture your talent around the clock.",
+        greeting: "I’m always online — reaching out, learning, and keeping your talent network engaged.",
         message: "Anytime you want to adjust our approach or hit pause, just let me know."
       };
     }
