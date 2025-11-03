@@ -234,7 +234,7 @@ const RecipeLoader: React.FC<RecipeLoaderProps> = ({ onNavigate }) => {
               alt="Logo"
             />
             <h1 className="page-title">
-              {isComplete ? 'All done, hit continue when you are ready' : 'Great - hang tight while I pull together your campaign preview'}
+              {isComplete ? 'All done, hit continue when you are ready' : "Great - let me show you how I'd approach this"}
             </h1>
           </div>
         </div>
